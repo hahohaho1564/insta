@@ -1,0 +1,35 @@
+name: 카드뉴스 완성
+
+# Claude가 작업함 이슈에 `/원고` 댓글을 달면 실행됩니다.
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  ingest:
+    if: >-
+      startsWith(github.event.comment.body, '/원고') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: 준비
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y fonts-noto-cjk
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: 사진 받기 → 카드뉴스 만들기 → 검수 요청
+        run: python -m src.pipeline ingest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+          COMMENT: ${{ github.event.comment.body }}
