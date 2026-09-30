@@ -14,9 +14,3 @@ slides:
   count: 7            # 표지와 결론 포함 장수 (5~9)
   gather_slide: true  # 마지막에 저장·공유·팔로우 장 추가 (공지 글 제외)
   max_photos: 3       # 글 하나에 들어가는 사진 수 (표지 포함)
-
-schedule:
-  publish_time: "12:00"   # 게시 시각(한국시간). 바꾸면 publish.yml의 cron도 같이 바꾸세요.
-
-instagram:
-  graph_version: "v23.0"
