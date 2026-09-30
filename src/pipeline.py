@@ -3,8 +3,6 @@
 
 원고와 사진은 Claude가 채팅에서 만들어 '작업함' 이슈에 `/원고` 댓글로 넘깁니다.
   ingest   `/원고` 댓글 → 사진 내려받기 → 카드뉴스 렌더링 → 글마다 검수 이슈
-  approve  '승인' 라벨 → 예약 (예정일이 지났거나 급한 글이면 바로 게시)
-  publish  (평일 정오) 오늘 올릴 승인된 글 게시
   setup    처음 한 번: 라벨과 작업함 이슈 만들기
 """
 import datetime as dt
@@ -64,10 +62,6 @@ def today() -> dt.date:
 
 def now_str() -> str:
     return dt.datetime.now(KST).isoformat(timespec="minutes")
-
-
-def ptime() -> str:
-    return str(cfg().get("schedule", {}).get("publish_time", "12:00"))
 
 
 def md(d: str) -> str:
@@ -187,8 +181,7 @@ def hist_get(hist: list, post_id: str) -> dict:
 
 
 def ensure_labels():
-    for name, color in (("카드뉴스", "7B57D6"), ("검수대기", "F4B63B"), ("승인", "5E9E1E"),
-                        ("게시완료", "C7B3F5"), ("작업함", "E4572E")):
+    for name, color in (("카드뉴스", "7B57D6"), ("검수대기", "F4B63B"), ("작업함", "E4572E")):
         sh("gh", "label", "create", name, "--color", color, "--force")
 
 
@@ -214,34 +207,50 @@ def render_post_by_prompt(pid: str, script: dict, rev: int):
 def review_body(pid: str, script: dict, h: dict, log: list) -> str:
     rev = script.get("rev", 1)
     n = len(script["slides"])
-    imgs = "".join(f'<img src="{raw_url(pid, f"r{rev}_{i:02d}.jpg")}" width="240"> ' for i in range(1, n + 1))
+    imgs = "".join(f'<a href="{raw_url(pid, f"r{rev}_{i:02d}.jpg")}"><img src="{raw_url(pid, f"r{rev}_{i:02d}.jpg")}" width="240"></a> '
+                   for i in range(1, n + 1))
     facts = "\n".join(f"- [ ] {f}" for f in script["factCheck"]) or "확인이 필요한 항목이 없어요."
     notes = ("\n\n### 참고\n" + "\n".join(f"- {x}" for x in log)) if log else ""
-    when = "승인하면 바로 게시" if h.get("urgent") else f"**{md(h['scheduled'])} {ptime()} 게시 예정**"
+    when = "오늘 올리기" if h.get("urgent") else f"{md(h['scheduled'])} 올리기 추천"
     return f"""<!-- post:{pid} rev:{rev} -->
 ## {script['topic']}
 **{script['badge']}** · {n}장 · {rev}번째 버전 · {when}
 
+### 📥 [전체 이미지 한 번에 받기 (zip)]({raw_url(pid, f"cardnews_{pid}_r{rev}.zip")})
+
 {imgs}
 
-### 캡션
+### 캡션 (복사해서 쓰세요)
 ```text
 {script['caption']}
 
 {script['hashtags']}
 ```
 
-### 게시 전 확인
+### 올리기 전 확인
 {facts}
 {notes}
 
 ---
 **이렇게 하시면 돼요**
-- 괜찮으면 오른쪽 **Labels**에서 `승인`을 붙이세요. 예정일에 자동으로 올라갑니다.
+- 위의 **zip 링크**를 누르면 전체 이미지와 캡션이 한 번에 받아져요. 휴대폰에서는 이미지를 하나씩 눌러 길게 누르면 저장할 수 있어요.
+- 인스타그램에서 여러 장 게시물로 순서대로(01 → {n:02d}) 올리고 캡션을 붙여넣으세요.
 - 고칠 게 있으면 Claude 채팅에서 말하세요. 예: "10/7 글 표지 문구 더 짧게, 3번째 장 사진은 네일샵으로"
-- 올리지 않을 거면 이슈를 닫으면 됩니다.
-- '게시 전 확인' 항목이 있으면 이슈 본문을 편집해서 확인한 것에 체크해야 게시돼요.
+- 올렸으면 이 이슈를 닫아두세요. 정리용이에요.
 """
+
+
+def make_zip(pid: str, script: dict):
+    """내려받기용 zip (이미지 + 캡션)."""
+    import zipfile
+    d = post_dir(pid)
+    rev = script.get("rev", 1)
+    for old in d.glob("cardnews_*.zip"):
+        old.unlink()
+    with zipfile.ZipFile(d / f"cardnews_{pid}_r{rev}.zip", "w", zipfile.ZIP_DEFLATED) as z:
+        for f in sorted(d.glob(f"r{rev}_*.jpg")):
+            z.write(f, f.name.split("_", 1)[1])
+        z.writestr("캡션.txt", f"{script['caption']}\n\n{script['hashtags']}".strip())
 
 
 def finish_post(pid: str, log: list):
@@ -253,6 +262,7 @@ def finish_post(pid: str, log: list):
     if not new_issue:
         script["rev"] = script.get("rev", 1) + 1
     render_post_by_prompt(pid, script, script.get("rev", 1))
+    make_zip(pid, script)
     save_script(pid, script)
     git_push(f"카드뉴스 완성: {pid} r{script.get('rev', 1)}")
     body = review_body(pid, script, h, log)
@@ -264,11 +274,8 @@ def finish_post(pid: str, log: list):
             (post_dir(pid) / "issue_preview.md").write_text(body, encoding="utf-8")
     else:
         sh("gh", "issue", "edit", str(h["issue"]), "--body-file", "-", input_text=body)
-        try:  # 수정본은 다시 승인받기
-            sh("gh", "issue", "edit", str(h["issue"]), "--remove-label", "승인", "--add-label", "검수대기")
-        except RuntimeError:
-            pass
-        sh("gh", "issue", "comment", str(h["issue"]), "--body", "수정본으로 바꿨어요. 위 미리보기를 확인해 주세요.")
+        sh("gh", "issue", "reopen", str(h["issue"]))
+        sh("gh", "issue", "comment", str(h["issue"]), "--body", "수정본으로 바꿨어요. 위 미리보기와 zip이 새 버전이에요.")
     h["status"] = "검수대기"
     jsave(HISTORY, hist)
     git_push(f"기록 업데이트: {pid}")
@@ -329,7 +336,7 @@ def cmd_ingest():
         hist = jload(HISTORY, [])
         results.append(f"- {md(hist_get(hist, pid)['scheduled'])} {script['topic']} → #{hist_get(hist, pid)['issue']}")
     if issue:
-        sh("gh", "issue", "comment", issue, "--body", "카드뉴스를 완성해서 검수 요청을 보냈어요.\n" + "\n".join(results))
+        sh("gh", "issue", "comment", issue, "--body", "카드뉴스를 완성했어요. 글마다 이슈에서 내려받을 수 있어요.\n" + "\n".join(results))
     print("\n".join(results))
 
 
@@ -349,87 +356,7 @@ def cmd_setup():
     print("작업함:", url)
 
 
-def issue_marker(issue: int) -> tuple[str, int, str]:
-    body = sh("gh", "issue", "view", str(issue), "--json", "body", "-q", ".body")
-    m = re.search(r"<!-- post:(\S+) rev:(\d+) -->", body)
-    if not m:
-        raise RuntimeError("이 이슈는 카드뉴스 이슈가 아닙니다.")
-    return m.group(1), int(m.group(2)), body
-
-
-def facts_ok(issue: int, body: str) -> bool:
-    if "- [ ]" in body:
-        sh("gh", "issue", "edit", str(issue), "--remove-label", "승인")
-        sh("gh", "issue", "comment", str(issue), "--body",
-           "'게시 전 확인'에 체크 안 된 항목이 있어요. 본문을 편집해 확인한 항목에 체크한 뒤 다시 `승인`을 붙여주세요.")
-        return False
-    return True
-
-
-def published_today(hist: list) -> bool:
-    return any((h.get("published") or "").startswith(today().isoformat()) and not h.get("urgent") for h in hist)
-
-
-def publish_now(pid: str, issue: int, rev: int):
-    from .instagram import InstagramError, publish_carousel
-    c = cfg()
-    script = load_script(pid)
-    urls = [raw_url(pid, f"r{rev}_{i:02d}.jpg") for i in range(1, len(script["slides"]) + 1)]
-    caption = f"{script['caption']}\n\n{script['hashtags']}".strip()
-    try:
-        res = publish_carousel(os.environ["IG_USER_ID"], os.environ["IG_ACCESS_TOKEN"], urls, caption,
-                               c["instagram"]["graph_version"])
-    except (InstagramError, KeyError) as e:
-        sh("gh", "issue", "comment", str(issue), "--body",
-           f"인스타그램 게시에 실패했어요: {e}\n\n토큰이 만료됐거나 권한이 없을 수 있어요. 설정 확인 후 `승인` 라벨을 뗐다가 다시 붙여주세요.")
-        raise SystemExit(1)
-    sh("gh", "issue", "comment", str(issue), "--body", f"인스타그램에 올렸어요 🎉 {res['permalink']}")
-    sh("gh", "issue", "edit", str(issue), "--add-label", "게시완료", "--remove-label", "검수대기")
-    sh("gh", "issue", "close", str(issue))
-    hist = jload(HISTORY, [])
-    hist_get(hist, pid).update(status="게시완료", permalink=res["permalink"], published=now_str())
-    jsave(HISTORY, hist)
-    git_push(f"게시 완료: {pid}")
-
-
-def cmd_approve():
-    issue = int(os.environ["ISSUE"])
-    pid, rev, body = issue_marker(issue)
-    if not facts_ok(issue, body):
-        return
-    hist = jload(HISTORY, [])
-    h = hist_get(hist, pid)
-    h["status"] = "승인"
-    jsave(HISTORY, hist)
-    git_push(f"승인: {pid}")
-    if h.get("urgent") or (h["scheduled"] <= today().isoformat() and not published_today(hist)):
-        publish_now(pid, issue, rev)
-    else:
-        sh("gh", "issue", "comment", str(issue), "--body", f"승인됐어요. {md(h['scheduled'])} {ptime()}에 올라갑니다.")
-
-
-def cmd_publish():
-    """평일 정오: 예정일이 된 승인 글 중 가장 이른 것 하나 게시."""
-    hist = jload(HISTORY, [])
-    if published_today(hist):
-        print("오늘은 이미 게시했어요.")
-        return
-    out = sh("gh", "issue", "list", "--label", "승인", "--label", "카드뉴스", "--state", "open",
-             "--json", "number", "-q", ".[].number")
-    cands = []
-    for num in filter(None, out.split("\n")):
-        pid, rev, body = issue_marker(int(num))
-        h = next((x for x in hist if x["id"] == pid), None)
-        if h and not h.get("published") and h.get("scheduled", "9999") <= today().isoformat() and "- [ ]" not in body:
-            cands.append((h["scheduled"], pid, int(num), rev))
-    if not cands:
-        print("오늘 올릴 승인된 글이 없어요.")
-        return
-    _, pid, num, rev = sorted(cands)[0]
-    publish_now(pid, num, rev)
-
-
 if __name__ == "__main__":
-    cmds = {"ingest": cmd_ingest, "approve": cmd_approve, "publish": cmd_publish, "setup": cmd_setup}
+    cmds = {"ingest": cmd_ingest, "setup": cmd_setup}
     name = sys.argv[1] if len(sys.argv) > 1 else ""
     cmds.get(name, lambda: sys.exit("사용법: python -m src.pipeline " + "|".join(cmds)))()
