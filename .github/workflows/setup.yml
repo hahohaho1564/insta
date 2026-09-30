@@ -1,0 +1,22 @@
+name: 처음 설정 (한 번만)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml requests pillow playwright
+      - name: 라벨과 작업함 이슈 만들기
+        run: python -m src.pipeline setup
+        env:
+          GH_TOKEN: ${{ github.token }}
