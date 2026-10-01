@@ -6,7 +6,7 @@
     {
       "type": "cover",
       "headline": "리뷰 답글,\n매번 **복붙**하고 계신가요? 🤔",
-      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20260930_074608_de68a055-0d7c-48f7-acf6-ede426a90a43.png"
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261001_005055_14242d0e-f01c-4024-803a-37e500e7e84e.png"
     },
     {
       "type": "imageText",
@@ -15,47 +15,41 @@
       "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20260930_074623_18da3b1e-af02-4159-9df6-7db24cb2924a.png"
     },
     {
-      "type": "quiz",
-      "number": "1",
-      "question": "불만 리뷰에는\n답글을 안 다는 게 낫다?",
-      "sub": "원장님은 어떻게 생각하세요?",
-      "optA": "✅ 안 다는 게 낫다",
-      "optB": "❌ 다는 게 낫다"
-    },
-    {
-      "type": "table",
+      "type": "imageText",
       "title": "좋은 답글에\n꼭 들어가는 것",
-      "rows": "시술명이나 방문 상황 한마디\n리뷰 속 내용에 대한 반응\n다음 방문 때 챙길 점 한 줄",
-      "explanation": "세 가지만 넣어도\n**복붙 느낌**이 사라져요."
+      "body": "세 가지만 넣어도\n**복붙 느낌**이 사라져요.",
+      "imagePrompt": "https://github.com/user-attachments/assets/118145e3-2a1c-431c-9a13-f01025a82db8"
     },
     {
       "type": "imageText",
-      "title": "정답은? ❌\n불만 리뷰일수록 답글을",
-      "body": "다음 손님은 **원장님의 대처**를 봐요.\n변명 대신 사과와 개선점을 짧게,\n긴 이야기는 따로 연락드린다고\n말씀해 주세요.",
-      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20260930_074642_599efb69-7a08-42ba-8adb-a6b65159da5a.png"
+      "title": "불만 리뷰엔 답글을\n안 다는 게 낫다?",
+      "body": "아니에요. 다음 손님은\n**원장님의 대처**를 봐요.\n변명 대신 사과와 개선점을\n짧게 남겨주세요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261001_005113_c102b4d9-0427-49da-9e30-fdee0ea367cf.png"
     },
     {
-      "type": "table",
+      "type": "imageText",
       "title": "불만 리뷰 답글,\n이것만은 피하세요",
-      "rows": "손님 탓으로 들리는 표현\n방문 기록 등 개인 정보 언급\n감정이 섞인 긴 해명",
-      "explanation": "답글은 **모두에게 공개**된다는 걸\n꼭 기억해 주세요."
+      "body": "답글은 **모두에게 공개**된다는 걸\n꼭 기억해 주세요.",
+      "imagePrompt": "https://github.com/user-attachments/assets/cebfec8b-22c3-4998-b214-bdac50a9649b"
+    },
+    {
+      "type": "tip",
+      "number": "1",
+      "title": "길어질 이야기는\n따로 연락드린다고",
+      "body": "답글에서 길게 해명하면\n오히려 더 눈에 띄어요.\n**짧은 사과 + 개별 연락 안내**면\n충분해요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261001_011139_3a45e03e-42a1-4cf7-980d-960c9f88657b.png"
     },
     {
       "type": "conclusion",
       "text": "답글은 그 손님만이 아니라\n다음 손님이 읽는 글이에요!",
       "foot": "앞으로도 원장님들께 도움되는\n현실 꿀팁이 계속 올라옵니다"
-    },
-    {
-      "type": "gather",
-      "title": "원장님, 이 글은\n**저장**해두세요",
-      "lines": "🔖 저장해두고 필요할 때 꺼내보기\n📤 옆 샵 원장님께 공유하기\n➕ @_beauty.panda 팔로우하고 꿀팁 받기"
     }
   ],
   "caption": "리뷰 답글, 매번 똑같이 달고 계신가요? 💬\n답글은 리뷰 쓴 손님뿐 아니라 다음 손님도 함께 읽는 글이에요.\n좋은 답글에 넣을 것과 불만 리뷰 대처법을 정리했어요.\n\n저장해 두고 답글 쓸 때 꺼내 보세요 📌",
   "hashtags": "#뷰티샵원장 #네이버플레이스 #리뷰관리 #리뷰답글 #샵마케팅 #1인샵 #속눈썹샵 #네일샵 #왁싱샵 #피부관리실",
   "factCheck": [
-    "답글 여부가 플레이스 노출에 영향을 준다는 내용은 넣지 않았어요. 플랫폼 정책 관련 주장은 없습니다.",
+    "답글 여부가 플레이스 노출에 영향을 준다는 내용은 넣지 않았어요.",
     "'답글은 다음 손님도 읽는다'는 일반적인 관점이며 수치 근거는 없어요."
   ],
-  "rev": 1
+  "rev": 2
 }
