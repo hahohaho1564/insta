@@ -12,7 +12,7 @@
       "type": "imageText",
       "title": "예약금 받으면\n손님이 줄어든다?",
       "body": "처음엔 부담스러워하는 분도 계세요.\n그런데 규정이 분명한 샵일수록\n**예약을 가볍게 여기지 않게** 돼요.\n결국 차이는 안내 방식이에요.",
-      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20260930_074520_ca3ed8b9-227c-4afd-9217-9ee2bc93cdc9.png"
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261001_011112_0294064c-7fa2-4faf-80f9-e0ce878a9cba.png"
     },
     {
       "type": "tip",
@@ -22,39 +22,36 @@
       "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20260930_074550_ce1493d9-ed79-4de3-bd17-2408c647a522.png"
     },
     {
-      "type": "table",
+      "type": "imageText",
       "title": "예약 안내 문자에\n꼭 넣을 네 가지",
-      "rows": "예약 날짜·시간·시술명\n예약금 금액과 입금 기한\n변경·취소 가능한 시점\n당일 취소·노쇼 시 처리 방법",
-      "explanation": "금액과 기한은 **원장님 샵 기준**으로\n정해서 매번 같은 문장으로 보내주세요."
+      "body": "금액과 기한은 **원장님 샵 기준**으로\n정해서 매번 같은 문장으로\n보내주세요.",
+      "imagePrompt": "https://github.com/user-attachments/assets/18c64fb4-f7cc-418d-884e-9589271ce7ce"
     },
     {
-      "type": "kakao",
-      "label": "❌ 혹시 이렇게 답하고 계신가요?",
-      "messages": "고객: 예약금 꼭 내야 하나요?\n원장: 네 규정이라서요. 안 내시면 예약 안 돼요.",
-      "note": "틀린 말은 아니지만\n손님은 **거절당한 느낌**을 받아요."
+      "type": "tip",
+      "number": "2",
+      "title": "'규정이라서요' 대신\n이유를 말해주세요",
+      "body": "'안 내시면 예약 안 돼요'보다\n**'시간을 온전히 비워두려고요'**가\n훨씬 부드럽게 들려요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261001_005012_805d4078-4eb9-41a9-977f-bf72a1726b79.png"
     },
     {
-      "type": "kakao",
-      "label": "✅ 이제 이렇게 답해보세요",
-      "messages": "고객: 예약금 꼭 내야 하나요?\n원장: 네 고객님~ 시술 시간을 온전히 비워두려고 받고 있어요.\n원장: 시술 당일 금액에서 그대로 빼드려요 😊",
-      "note": "**이유와 혜택**을 같이 말하면\n훨씬 부드럽게 들려요."
+      "type": "tip",
+      "number": "3",
+      "title": "노쇼 손님에게도\n감정 대신 규정만 짧게",
+      "body": "속상한 마음은 잠시 접어두고\n**규정 안내와 다음 예약 제안**만\n담담하게 보내주세요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261001_005031_b6761fb9-b96f-4ad8-a731-87884615a9f3.png"
     },
     {
       "type": "conclusion",
       "text": "예약금은 받는 것보다\n알리는 방식이 중요해요!",
       "foot": "앞으로도 원장님들께 도움되는\n현실 꿀팁이 계속 올라옵니다"
-    },
-    {
-      "type": "gather",
-      "title": "원장님, 이 글은\n**저장**해두세요",
-      "lines": "🔖 저장해두고 필요할 때 꺼내보기\n📤 옆 샵 원장님께 공유하기\n➕ @_beauty.panda 팔로우하고 꿀팁 받기"
     }
   ],
-  "caption": "노쇼 때문에 속상하셨던 원장님들 🥲\n예약금은 받느냐보다 어떻게 안내하느냐가 더 중요해요.\n안내 문자에 넣을 항목과 답장 예시까지 정리했어요.\n\n옆 샵 원장님께도 공유해 주세요 📌",
+  "caption": "노쇼 때문에 속상하셨던 원장님들 🥲\n예약금은 받느냐보다 어떻게 안내하느냐가 더 중요해요.\n안내 문자에 넣을 항목과 답장 요령까지 정리했어요.\n\n옆 샵 원장님께도 공유해 주세요 📌",
   "hashtags": "#뷰티샵원장 #노쇼 #예약금 #노쇼방지 #1인샵 #속눈썹샵 #네일샵 #왁싱샵 #피부관리실 #반영구",
   "factCheck": [
     "예약금 환불·위약금 규정은 샵마다 다르고 소비자 분쟁 기준과 맞는지 원장님이 직접 확인해 주세요.",
-    "카톡 예시의 '시술 당일 금액에서 빼드려요'는 예약금을 시술비에서 차감하는 샵 기준 문구예요. 규정이 다르면 바꿔 주세요."
+    "표 이미지의 예시(날짜, OO원, OO일 전)는 예시 문구예요. 샵 기준에 맞게 쓰시면 됩니다."
   ],
-  "rev": 1
+  "rev": 2
 }
