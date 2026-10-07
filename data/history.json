@@ -23,8 +23,8 @@
     "id": "2026-10-08-01",
     "topic": "시술 후 사후관리 문자, 언제 뭐라고 보내야 재방문으로 이어질까",
     "category": "info",
-    "status": "렌더링",
-    "issue": null,
+    "status": "검수대기",
+    "issue": 4,
     "scheduled": "2026-10-08",
     "urgent": false,
     "created": "2026-10-07T10:18+09:00"
