@@ -1,0 +1,57 @@
+{
+  "topic": "시술 후 사후관리 문자, 언제 뭐라고 보내야 재방문으로 이어질까",
+  "category": "info",
+  "badge": "오늘의 정보",
+  "slides": [
+    {
+      "type": "cover",
+      "headline": "시술 후 문자 하나로\n**재방문**이 달라져요 💌",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261007_005950_9fe4793a-5f15-4683-b065-a6aa2e4a732a.png"
+    },
+    {
+      "type": "imageText",
+      "title": "시술 끝나면\n연락도 끝?",
+      "body": "손님은 집에 가서 **거울을 볼 때**\n샵을 다시 떠올려요.\n그때 도착한 문자 한 통이\n샵을 기억하게 해줘요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261007_010013_271e1640-3c26-4570-a1a8-67a75e627a77.png"
+    },
+    {
+      "type": "imageText",
+      "title": "언제 보내면\n좋을까요?",
+      "body": "시기는 **시술 종류에 맞게**\n원장님 기준으로 정해주세요.",
+      "imagePrompt": "https://github.com/user-attachments/assets/6807ef39-4b54-4f23-875e-ca03b98292d2"
+    },
+    {
+      "type": "tip",
+      "number": "1",
+      "title": "첫 문자는\n주의사항 한 줄로",
+      "body": "긴 안내문보다\n**오늘 꼭 지킬 것 하나**만\n다시 짚어주세요.\n짧을수록 기억하기 쉬워요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261007_010043_0e8f6148-88c4-4b10-9ce9-3c8ae2bca48a.png"
+    },
+    {
+      "type": "tip",
+      "number": "2",
+      "title": "안부 문자엔\n질문을 하나 넣어주세요",
+      "body": "'불편한 곳은 없으세요?' 한마디면\n**답장이 오고 대화가 시작**돼요.\n아쉬운 점도 미리 들을 수 있어요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261007_010111_c523e941-898b-483a-9841-e9b054fa94fa.png"
+    },
+    {
+      "type": "tip",
+      "number": "3",
+      "title": "다음 예약은\n권유 말고 안내로",
+      "body": "'또 오세요'보다\n**'이맘때 리터치하면 좋아요'**가\n부담 없이 들려요.",
+      "imagePrompt": "https://d8j0ntlcm91z4.cloudfront.net/user_3IxPzrZ0xiAi4kVE2HtrfsXd2ij/hf_20261007_010138_1c931652-75ad-4576-b3fb-816b24504ed9.png"
+    },
+    {
+      "type": "conclusion",
+      "text": "시술은 샵에서 끝나도\n관리는 문자로 이어져요!",
+      "foot": "앞으로도 원장님들께 도움되는\n현실 꿀팁이 계속 올라옵니다"
+    }
+  ],
+  "caption": "시술 끝나고 손님께 문자 보내고 계신가요? 💌\n보내는 시기와 한 줄만 바꿔도 손님이 샵을 기억하는 방식이 달라져요.\n언제, 뭐라고 보내면 좋은지 정리했어요.\n\n옆 샵 원장님께도 공유해 주세요 📌",
+  "hashtags": "#뷰티샵원장 #사후관리 #재방문 #단골관리 #1인샵 #속눈썹샵 #네일샵 #왁싱샵 #피부관리실 #샵운영팁",
+  "factCheck": [
+    "문자 시기(당일 저녁, 2~3일 뒤 등)는 일반적인 예시예요. 시술 종류에 맞게 조정해 주세요.",
+    "다음 예약·리터치 안내 문자가 광고성 정보에 해당할 수 있으니 수신 동의 관련 규정을 확인해 주세요."
+  ],
+  "rev": 1
+}
